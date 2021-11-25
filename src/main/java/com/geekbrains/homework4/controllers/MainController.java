@@ -2,7 +2,6 @@ package com.geekbrains.homework4.controllers;
 
 import com.geekbrains.homework4.data.Product;
 import com.geekbrains.homework4.services.ProductsService;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;

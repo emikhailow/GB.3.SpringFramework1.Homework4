@@ -50,8 +50,7 @@ public class ProductDaoImpl implements ProductDao{
 
         try(Session session = sessionFactoryUtils.getSession()){
             session.beginTransaction();
-            Long maxID = (Long) session.createQuery("select max(p.id) from Product p").getSingleResult();
-            Product product = new Product(maxID + 1, title);
+            Product product = new Product(title);
             session.save(product);
             session.getTransaction().commit();
         }

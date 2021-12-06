@@ -22,4 +22,13 @@ public class ProductsService {
     public Optional<Product> getProductById(Long id) {
         return productsRepository.findById(id);
     }
+
+    public void removeItem(Long id) {
+        productsRepository.deleteById(id);
+    }
+
+    public List<Product> getProductsByCostBetween(Integer min, Integer max){
+        return productsRepository.findAllByCostBetween(min, max);
+    }
+
 }

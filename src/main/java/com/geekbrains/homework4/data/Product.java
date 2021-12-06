@@ -15,7 +15,7 @@ public class Product {
     private String title;
 
     @Column(name = "cost")
-    private double cost;
+    private int cost;
 
     @Transient
     private final Random random = new Random();
@@ -43,7 +43,7 @@ public class Product {
         return title;
     }
 
-    public double getCost() {
+    public int getCost() {
         return cost;
     }
 
@@ -54,7 +54,7 @@ public class Product {
     }
 
     private void generateRandomPrice() {
-        this.cost = Math.floor(100 * (MIN_PRICE + (MAX_PRICE - MIN_PRICE) * random.nextDouble())) / 100;
+        this.cost = random.nextInt(MAX_PRICE);
     }
 
     public Product() {

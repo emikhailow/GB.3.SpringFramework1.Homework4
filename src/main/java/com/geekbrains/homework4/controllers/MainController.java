@@ -21,13 +21,19 @@ public class MainController {
         return productsService.getProductsList();
     }
 
+    @GetMapping("/products/{id}")
+    public Product getProductById(@PathVariable Long id){
+        return productsService.getProductById(id).orElseThrow();
+    }
+
     @GetMapping("products/remove/{id}")
     public void removeItem(@PathVariable Long id){
-        productsService.removeItem(id);
+        //productsService.removeItem(id);
     }
 
     @GetMapping("products/add/{title}")
     public void addItem(@PathVariable String title){
-        productsService.addItem(title);
+
+        //productsService.addItem(title);
     }
 }

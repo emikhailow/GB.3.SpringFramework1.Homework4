@@ -1,15 +1,34 @@
 package com.geekbrains.homework4.services;
 
 import com.geekbrains.homework4.data.Product;
+import com.geekbrains.homework4.repository.ProductsRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public interface ProductsService {
+public class ProductsService {
+    private ProductsRepository productsRepository;
 
-    List<Product> getProductsList();
-    void removeItem(Long id);
-    void addItem(String title);
+    public ProductsService(ProductsRepository productsRepository) {
+        this.productsRepository = productsRepository;
+    }
+
+    public List<Product> getProductsList() {
+        return productsRepository.findAll();
+    }
+
+    public Optional<Product> getProductById(Long id) {
+        return productsRepository.findById(id);
+    }
+
+    public void removeItem(Long id) {
+        productsRepository.deleteById(id);
+    }
+
+    public List<Product> getProductsByCostBetween(Integer min, Integer max){
+        return productsRepository.findAllByCostBetween(min, max);
+    }
 
 }

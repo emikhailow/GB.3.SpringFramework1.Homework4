@@ -1,5 +1,5 @@
-angular.module('homework4', []).controller('indexController', function ($scope, $http) {
-    const contextPath = 'http://localhost:8189/homework4';
+angular.module('homework7', []).controller('indexController', function ($scope, $http) {
+    const contextPath = 'http://localhost:8189/homework7';
 
     $scope.loadProducts = function () {
         $http.get(contextPath + '/products')

@@ -1,15 +1,14 @@
 package com.geekbrains.homework4.controllers;
 
-import com.geekbrains.homework4.data.Product;
+import com.geekbrains.homework4.entities.Product;
+import com.geekbrains.homework4.dto.ProductDto;
+import com.geekbrains.homework4.exceptions.ResourceNotFoundException;
 import com.geekbrains.homework4.services.ProductsService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/api/v9/products")
 public class MainController {
     private ProductsService productsService;
 
@@ -17,29 +16,36 @@ public class MainController {
         this.productsService = productsService;
     }
 
-    @GetMapping("/products")
-    public List<Product> getProductsList(){
-        return productsService.getProductsList();
+    @GetMapping
+    public Page<ProductDto> getProductsList(
+            @RequestParam(name = "p", defaultValue = "1") Integer page,
+            @RequestParam(name = "min_price", required = false) Integer minPrice,
+            @RequestParam(name = "max_price", required = false) Integer maxPrice,
+            @RequestParam(name = "title_part", required = false) String titlePart
+    ){
+        if(page < 1){
+            page = 1;
+        }
+        return productsService.find(minPrice, maxPrice, titlePart, page)
+                .map(ProductDto::new);
     }
 
-    @GetMapping("/products/{id}")
-    public Product getProductById(@PathVariable Long id){
-        return productsService.getProductById(id).orElseThrow();
+    @GetMapping("/{id}")
+    public ProductDto getProductById(@PathVariable Long id){
+        return new ProductDto(productsService.getProductById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(String.format("Product %d not found", id))));
     }
 
-    @GetMapping("products/remove/{id}")
+    @PostMapping
+    public Product addItem(@RequestBody ProductDto productDto){
+        Product product = new Product(productDto);
+        product.setId(null);
+        return productsService.addItem(product);
+    }
+
+    @DeleteMapping("/{id}")
     public void removeItem(@PathVariable Long id){
         productsService.removeItem(id);
-    }
-
-    @GetMapping("products/add/{title}")
-    public void addItem(@PathVariable String title){
-        //productsService.addItem(title);
-    }
-
-    @GetMapping("/products/cost_between")
-    public List<Product> getProductsByCostBetween(@RequestParam(defaultValue = "0") Integer min, @RequestParam(defaultValue = "100") Integer max){
-        return productsService.getProductsByCostBetween(min, max);
     }
 
 

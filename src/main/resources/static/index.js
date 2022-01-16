@@ -1,5 +1,5 @@
-angular.module('homework7', []).controller('indexController', function ($scope, $http) {
-    const contextPath = 'http://localhost:8189/homework7';
+angular.module('homework9', []).controller('indexController', function ($scope, $http) {
+    const contextPath = 'http://localhost:8189/homework9';
 
     $scope.loadProducts = function () {
         $http.get(contextPath + '/products')
@@ -27,6 +27,22 @@ angular.module('homework7', []).controller('indexController', function ($scope, 
                      newItemInputField.value = ""
 
           };
+
+     $scope.filterProducts = function () {
+              console.log($scope.newFilter);
+              $http({
+                    url: contextPath + '/products/cost_between',
+                    method: 'get',
+                    params: {
+                        min: $scope.newFilter.min,
+                        max: $scope.newFilter.max
+                    }
+              }).then(function (response)
+              {
+                $scope.ProductsList = response.data;
+              });
+        }
+
 
     $scope.loadProducts();
 });

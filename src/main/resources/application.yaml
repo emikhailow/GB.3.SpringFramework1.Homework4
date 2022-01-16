@@ -1,7 +1,7 @@
 server:
   port: 8189
   servlet:
-    context-path: /homework9
+    context-path: /app
 spring:
   datasource:
     driver-class-name: org.h2.Driver

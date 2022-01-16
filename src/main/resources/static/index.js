@@ -1,48 +1,34 @@
-angular.module('homework9', []).controller('indexController', function ($scope, $http) {
-    const contextPath = 'http://localhost:8189/homework9';
+angular.module('app', []).controller('indexController', function ($scope, $http) {
+    const contextPath = 'http://localhost:8189/app/api/v9';
 
-    $scope.loadProducts = function () {
-        $http.get(contextPath + '/products')
-            .then(function (response) {
-                $scope.ProductsList = response.data;
+    $scope.loadProducts = function (pageIndex = 1) {
+        $http({
+            url: contextPath + '/products',
+            method: 'GET',
+            params: {
+                title_part: $scope.filter ? $scope.filter.title_part : null,
+                min_price: $scope.filter ? $scope.filter.min_price : null,
+                max_price: $scope.filter ? $scope.filter.max_price : null
+            }
+        }).then(function (response) {
+                $scope.ProductsList = response.data.content;
             });
     };
 
      $scope.removeItem = function (id) {
-            $http.get(contextPath + '/products/remove/' + id)
+            $http.delete(contextPath + '/products/' + id)
                 .then(function (response) {
                     $scope.loadProducts();
                 });
      };
 
-     $scope.addItem = function (title) {
-                 newItemInputField = document.getElementById("newItemInputField");
-                 if(newItemInputField.value === undefined){
-                    return;
-                 }
-                 $http.get(contextPath + '/products/add/' + newItemInputField.value)
-                     .then(function (response) {
-                         $scope.loadProducts();
-                     });
-                     newItemInputField.value = ""
-
-          };
-
-     $scope.filterProducts = function () {
-              console.log($scope.newFilter);
-              $http({
-                    url: contextPath + '/products/cost_between',
-                    method: 'get',
-                    params: {
-                        min: $scope.newFilter.min,
-                        max: $scope.newFilter.max
-                    }
-              }).then(function (response)
-              {
-                $scope.ProductsList = response.data;
-              });
+     $scope.addItem = function () {
+       console.log($scope.newItem);
+       $http.post(contextPath + '/products', $scope.newItem)
+       .then(function (response) {
+                   $scope.loadProducts();
+                        });
         }
-
 
     $scope.loadProducts();
 });

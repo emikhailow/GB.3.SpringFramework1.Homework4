@@ -1,4 +1,6 @@
-package com.geekbrains.homework4.data;
+package com.geekbrains.homework4.entities;
+
+import com.geekbrains.homework4.dto.ProductDto;
 
 import javax.persistence.*;
 import java.util.Random;
@@ -14,8 +16,8 @@ public class Product {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "cost")
-    private int cost;
+    @Column(name = "price")
+    private int price;
 
     @Transient
     private final Random random = new Random();
@@ -43,8 +45,8 @@ public class Product {
         return title;
     }
 
-    public int getCost() {
-        return cost;
+    public int getPrice() {
+        return price;
     }
 
     public Product(Long id) {
@@ -54,7 +56,7 @@ public class Product {
     }
 
     private void generateRandomPrice() {
-        this.cost = random.nextInt(MAX_PRICE);
+        this.price = random.nextInt(MAX_PRICE);
     }
 
     public Product() {
@@ -62,5 +64,11 @@ public class Product {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Product(ProductDto productDto){
+        this.id = productDto.getId();
+        this.price = productDto.getPrice();
+        this.title = productDto.getTitle();
     }
 }

@@ -8,7 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v9/products")
+@RequestMapping("/api/v10/products")
 public class MainController {
     private ProductsService productsService;
 
@@ -27,7 +27,7 @@ public class MainController {
             page = 1;
         }
         return productsService.find(minPrice, maxPrice, titlePart, page)
-                .map(ProductDto::new);
+                .map(p -> new ProductDto(p));
     }
 
     @GetMapping("/{id}")

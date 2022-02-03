@@ -10,12 +10,15 @@ import com.geekbrains.homework4.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 @RequiredArgsConstructor
 public class OrderService {
     private final OrderRepository orderRepository;
     private final ProductsService productsService;
 
+    @Transactional
     public Order saveOrder(Cart cart, User user){
 
         Order order = new Order();

@@ -2,8 +2,6 @@ package com.geekbrains.homework4.dto;
 
 import com.geekbrains.homework4.entities.Product;
 import lombok.Data;
-import org.hibernate.criterion.Order;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Iterator;

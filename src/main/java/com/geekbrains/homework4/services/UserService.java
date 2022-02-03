@@ -7,7 +7,6 @@ import com.geekbrains.homework4.entities.User;
 import com.geekbrains.homework4.exceptions.InternalServerErrorException;
 import com.geekbrains.homework4.exceptions.ResourceNotFoundException;
 import com.geekbrains.homework4.exceptions.UserAlreadyExistsException;
-import com.geekbrains.homework4.repository.RolesRepository;
 import com.geekbrains.homework4.repository.UserRepository;
 import com.geekbrains.homework4.utils.JwtTokenUtil;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -18,7 +17,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,7 +28,6 @@ import java.util.stream.Collectors;
 public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final RolesService rolesService;
-    private final RolesRepository rolesRepository;
     private final BCryptPasswordEncoder passwordEncoder;
     private final JwtTokenUtil jwtTokenUtil;
 

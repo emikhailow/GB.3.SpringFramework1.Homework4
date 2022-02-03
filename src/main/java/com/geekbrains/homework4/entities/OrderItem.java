@@ -1,6 +1,5 @@
 package com.geekbrains.homework4.entities;
 
-import com.geekbrains.homework4.dto.OrderItemDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

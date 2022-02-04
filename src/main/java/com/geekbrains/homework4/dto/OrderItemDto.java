@@ -1,11 +1,13 @@
 package com.geekbrains.homework4.dto;
 
 import com.geekbrains.homework4.entities.Product;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class OrderItemDto {
     private Long productId;
     private String productTitle;

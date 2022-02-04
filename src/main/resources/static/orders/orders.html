@@ -1,0 +1,17 @@
+<div>
+    <h3>My orders</h3>
+    <table class="table table-hover">
+        <tr>
+            <td>ID</td>
+            <td>Delivery address</td>
+            <td>Sum</td>
+        </tr>
+        <tbody>
+        <tr ng-repeat="order in MyOrders">
+            <td>{{order.id}}</td>
+            <td>{{order.address}}</td>
+            <td>{{order.totalPrice}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

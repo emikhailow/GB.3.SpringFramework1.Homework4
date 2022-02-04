@@ -35,14 +35,22 @@ public class Order {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<OrderItem> orderItemList;
+    @OneToMany(mappedBy = "order", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private List<OrderItem> items;
+
+    @CreationTimestamp
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 
     public Order() {
-        this.orderItemList = new ArrayList<>();
+        this.items = new ArrayList<>();
     }
 
     public void addItem(OrderItem orderItem){
-        this.orderItemList.add(orderItem);
+        this.items.add(orderItem);
     }
 }

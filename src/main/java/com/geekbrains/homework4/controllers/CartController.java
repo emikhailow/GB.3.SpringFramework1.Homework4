@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 
 @RestController
-@RequestMapping("/api/v13/carts")
+@RequestMapping("/api/v14/cart")
 @RequiredArgsConstructor
 public class CartController {
     private final CartService cartService;
@@ -37,7 +37,7 @@ public class CartController {
         cartService.clear();
     }
 
-    @PostMapping("/save")
+   /* @PostMapping("/save")
     public ResponseEntity<?> saveOrder(Principal principal){
 
         User user = userService.findByUsername(principal.getName())
@@ -45,5 +45,5 @@ public class CartController {
         Order order = orderService.saveOrder(cartService.getCurrentCart(), user);
 
         return ResponseEntity.ok(new OrderDto(order));
-    }
+    }*/
 }

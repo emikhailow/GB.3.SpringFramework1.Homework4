@@ -1,8 +1,11 @@
 package com.geekbrains.homework4.entities;
 
 import com.geekbrains.homework4.dto.ProductDto;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Random;
 
 @Entity
@@ -18,6 +21,14 @@ public class Product {
 
     @Column(name = "price")
     private int price;
+
+    @CreationTimestamp
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 
     @Transient
     private static final Random random = new Random();

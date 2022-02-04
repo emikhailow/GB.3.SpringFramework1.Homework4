@@ -1,0 +1,25 @@
+<div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <form class="align-middle" ng-submit="tryToSignUp()">
+                        <div class="input-group input-group-sm" style="padding: 4px;">
+                            <input id="newUserLoginField" class="form-control" ng-model="newUser.username" type="text"
+                                   aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;">
+
+                            <input id="newUserPasswordField" class="form-control" ng-model="newUser.password"
+                                   type="password"
+                                   aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;">
+                            <input id="newUserEmailField" class="form-control" ng-model="newUser.email" type="text"
+                                   aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;">
+                            <button id="newUserSubmit" class="btn btn-outline-warning btn-sm"
+                                    style="margin-left: 10px;" type="submit">Sign up
+                            </button>
+                        </div>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>

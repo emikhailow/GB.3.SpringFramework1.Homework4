@@ -8,7 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v13/products")
+@RequestMapping("/api/v14/products")
 public class MainController {
     private ProductsService productsService;
 

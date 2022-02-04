@@ -50,7 +50,5 @@ public class User {
     public User(UserDto userDto) {
         this.username = userDto.getUsername();
         this.email = userDto.getEmail();
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
     }
 }

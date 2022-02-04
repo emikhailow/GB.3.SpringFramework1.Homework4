@@ -1,11 +1,11 @@
 <div>
     <p></p>
-    <h3>Корзина</h3>
+    <h3>Cart</h3>
     <table class="table table-hover">
         <tr>
-            <td>Название товара</td>
-            <td>Количество</td>
-            <td>Цена</td>
+            <td>Item</td>
+            <td>Qunatity</td>
+            <td>Price</td>
         </tr>
         <tbody>
         <tr ng-repeat="item in cart.items">
@@ -15,24 +15,24 @@
         </tr>
         <tr>
             <td></td>
-            <td>Итого</td>
+            <td>Total</td>
             <td>{{Cart.totalPrice}}</td>
         </tr>
         </tbody>
     </table>
     <p>
-        <button class="btn btn-secondary" ng-click="clearCart()">Очистить корзину</button>
+        <button class="btn btn-secondary" ng-click="clearCart()">Clear cart</button>
     </p>
 
     <p></p>
-    <h3>Детали заказа</h3>
+    <h3>Order details</h3>
     <form novalidate>
-        <input class="form-control" type="text" placeholder="Номер телефона получателя" ng-model="orderDetails.phone">
+        <input class="form-control" type="text" placeholder="Phone number" ng-model="orderDetails.phone">
         <p></p>
-        <input class="form-control" type="text" placeholder="Адрес доставки" ng-model="orderDetails.address">
+        <input class="form-control" type="text" placeholder="Delivery address" ng-model="orderDetails.address">
         <p></p>
     </form>
 
-    <button class="btn btn-primary" ng-click="checkOut()" ng-show="isUserLoggedIn() && cart.items.length > 0">Оформить заказ</button>
-    <button class="btn btn-secondary" ng-click="disabledCheckOut()" ng-show="!isUserLoggedIn() && cart.items.length > 0">Оформить заказ</button>
+    <button class="btn btn-primary" ng-click="checkOut()" ng-show="isUserLoggedIn() && cart.items.length > 0">Create order</button>
+    <button class="btn btn-secondary" ng-click="disabledCheckOut()" ng-show="!isUserLoggedIn() && cart.items.length > 0">Create order</button>
 </div>

@@ -6,6 +6,7 @@ import lombok.Data;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Consumer;
 
 @Data
 public class Cart {
@@ -23,15 +24,15 @@ public class Cart {
         }
     }
 
-    public void addProduct(Product product){
-        if(addProduct(product.getId())){
+    public void add(Product product){
+        if(add(product.getId())){
             return;
         }
         items.add(new OrderItemDto(product));
         recalculate();
     }
 
-    public boolean addProduct(Long id) {
+    public boolean add(Long id) {
         for (OrderItemDto item : items) {
             if(item.getProductId().equals(id)){
                 item.changeQuantity(1);
@@ -42,12 +43,12 @@ public class Cart {
         return false;
     }
 
-    public void decreaseProduct(Long id){
+    public void decrement(Long productId){
         Iterator<OrderItemDto> iter = items.iterator();
         while(iter.hasNext())
         {
             OrderItemDto item = iter.next();
-            if(item.getProductId().equals(id)){
+            if(item.getProductId().equals(productId)){
                 item.changeQuantity(-1);
                 if(item.getQuantity() <= 0) {
                     iter.remove();
@@ -58,8 +59,8 @@ public class Cart {
         }
     }
 
-    public void removeProduct(Long id){
-        items.removeIf(i -> i.getProductId().equals(id));
+    public void remove(Long productId){
+        items.removeIf(i -> i.getProductId().equals(productId));
         recalculate();
     }
 
@@ -67,4 +68,22 @@ public class Cart {
         items.clear();
         recalculate();
     }
+    public void merge(Cart another) {
+        for (OrderItemDto anotherItem : another.items) {
+            boolean merged = false;
+            for (OrderItemDto myItem : items) {
+                if (myItem.getProductId().equals(anotherItem.getProductId())) {
+                    myItem.changeQuantity(anotherItem.getQuantity());
+                    merged = true;
+                    break;
+                }
+            }
+            if (!merged) {
+                items.add(anotherItem);
+            }
+        }
+        recalculate();
+        another.clear();
+    }
+
 }

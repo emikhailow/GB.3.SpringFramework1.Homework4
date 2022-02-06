@@ -2,7 +2,6 @@ package com.geekbrains.homework4.services;
 
 import com.geekbrains.homework4.dto.Cart;
 import com.geekbrains.homework4.dto.OrderDetailsDto;
-import com.geekbrains.homework4.dto.OrderItemDto;
 import com.geekbrains.homework4.entities.Order;
 import com.geekbrains.homework4.entities.OrderItem;
 import com.geekbrains.homework4.entities.User;
@@ -11,7 +10,6 @@ import com.geekbrains.homework4.repository.OrdersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.print.DocFlavor;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,7 +23,8 @@ public class OrderService {
 
     @Transactional
     public void createOrder(User user, OrderDetailsDto orderDetailsDto){
-        Cart currentCart = cartService.getCurrentCart();
+        String cartKey = cartService.getCartUuidFromSuffix(user.getUsername());
+        Cart currentCart = cartService.getCurrentCart(cartKey);
 
         Order order = new Order();
         order.setAddress(orderDetailsDto.getAddress());
@@ -40,13 +39,13 @@ public class OrderService {
                     orderItem.setPrice(orderItemDto.getPrice());
                     orderItem.setPricePerProduct(orderItemDto.getPricePerProduct());
                     orderItem.setQuantity(orderItemDto.getQuantity());
-                    orderItem.setProduct(productsService.getProductById(orderItemDto.getProductId())
+                    orderItem.setProduct(productsService.findById(orderItemDto.getProductId())
                             .orElseThrow(() -> new ResourceNotFoundException(String.format("Item with id %d not found", orderItemDto.getProductId()))));
                     return orderItem;
                 }).collect(Collectors.toList());
         order.setItems(items);
         ordersRepository.save(order);
-        currentCart.clear();
+        cartService.clearCart(cartKey);
     }
 
     public List<Order> findOrdersByUsername(String username){

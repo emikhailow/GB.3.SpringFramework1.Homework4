@@ -20,7 +20,7 @@ public class Product {
     private int price;
 
     @Transient
-    private final Random random = new Random();
+    private static final Random random = new Random();
     @Transient
     private static final int MIN_PRICE = 1;
     @Transient
@@ -70,5 +70,23 @@ public class Product {
         this.id = productDto.getId();
         this.price = productDto.getPrice();
         this.title = productDto.getTitle();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (obj.getClass() != this.getClass()) {
+            return false;
+        }
+
+        final Product otherProduct = (Product) obj;
+        if (this.id != otherProduct.id) {
+            return false;
+        }
+
+        return true;
     }
 }

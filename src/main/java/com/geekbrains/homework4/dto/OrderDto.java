@@ -1,15 +1,20 @@
 package com.geekbrains.homework4.dto;
 
 import com.geekbrains.homework4.entities.Order;
+import com.geekbrains.homework4.entities.OrderItem;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
-@NoArgsConstructor
+@AllArgsConstructor
 public class OrderDto {
     private long id;
-
-    public OrderDto(Order order) {
-        this.id = order.getId();
-    }
+    private String username;
+    private List<OrderItemDto> items;
+    private Integer totalPrice;
+    private String address;
+    private String phone;
 }

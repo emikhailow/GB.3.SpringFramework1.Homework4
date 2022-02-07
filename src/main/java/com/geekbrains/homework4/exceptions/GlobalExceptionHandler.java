@@ -14,4 +14,12 @@ public class GlobalExceptionHandler {
     public ResponseEntity<AppError> catchResourceNotFoundException(ResourceNotFoundException e){
         return new ResponseEntity<>(new AppError(HttpStatus.NOT_FOUND.value(), e.getMessage()), HttpStatus.NOT_FOUND);
     }
+    @ExceptionHandler
+    public ResponseEntity<AppError> catchUserAlreadyExistsException(UserAlreadyExistsException e){
+        return new ResponseEntity<>(new AppError(HttpStatus.BAD_REQUEST.value(), e.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler
+    public ResponseEntity<AppError> catchInternalServerErrorException(InternalServerErrorException e){
+        return new ResponseEntity<>(new AppError(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }

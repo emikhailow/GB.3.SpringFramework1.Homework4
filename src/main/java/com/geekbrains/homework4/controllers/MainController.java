@@ -27,7 +27,7 @@ public class MainController {
             page = 1;
         }
         return productsService.find(minPrice, maxPrice, titlePart, page)
-                .map(p -> new ProductDto(p));
+                .map(ProductDto::new);
     }
 
     @GetMapping("/{id}")

@@ -99,13 +99,8 @@
                         <td>{{s.id}}</td>
                         <td>{{s.title}}</td>
                         <td>{{s.price}}</td>
-                        <!--<td>
-                            <button class="btn btn-primary" ng-click="changeScore(s.id, -5)">-</button>
-                            {{s.score}}
-                            <button class="btn btn-primary" ng-click="changeScore(s.id, 5)">+</button>
-                        </td>-->
                         <td>
-                            <button class="btn btn-danger" ng-click="addToCart(s.id)">Добавить</button>
+                            <button class="btn btn-primary" ng-click="addToCart(s.id)">Add to cart</button>
                         </td>
                         <td>
                             <button class="btn btn-danger" ng-click="removeItem(s.id)">Удалить</button>
@@ -142,18 +137,27 @@
                 <h3>Your cart</h3>
                 <table class="table table-hover" cellpadding="0" cellspacing="0">
                     <tr>
-                        <td>ID</td>
                         <td>Name</td>
-                        <td>Price</td>
+                        <td>Quantity</td>
+                        <td>Sum</td>
                     </tr>
                     <tbody>
-                    <tr ng-repeat="c in CartList">
-                        <td>{{c.id}}</td>
-                        <td>{{c.title}}</td>
-                        <td>{{c.price}}</td>
+                    <tr ng-repeat="item in cart.items">
+                        <td>{{item.productTitle}}</td>
+                        <td>{{item.quantity}}</td>
+                        <td>{{item.pricePerProduct + ' x ' + item.quantity + ' = ' + item.price}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Total</td>
+                        <td>{{cart.totalPrice}}</td>
                     </tr>
                     </tbody>
                 </table>
+                <p>
+                    <button class="btn btn-secondary" ng-click="clearCart()">Clear cart</button>
+                    <button class="btn btn-primary" ng-click="saveOrder()">Save order</button>
+                </p>
             </div>
             <div class="col-2">
             </div>

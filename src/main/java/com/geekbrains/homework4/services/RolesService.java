@@ -4,7 +4,6 @@ import com.geekbrains.homework4.entities.Role;
 import com.geekbrains.homework4.exceptions.InternalServerErrorException;
 import com.geekbrains.homework4.repository.RolesRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

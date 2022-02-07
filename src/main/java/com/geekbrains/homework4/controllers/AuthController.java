@@ -4,7 +4,6 @@ import com.geekbrains.homework4.dto.JwtRequest;
 import com.geekbrains.homework4.dto.JwtResponse;
 import com.geekbrains.homework4.dto.UserDto;
 import com.geekbrains.homework4.exceptions.AppError;
-import com.geekbrains.homework4.exceptions.UserAlreadyExistsException;
 import com.geekbrains.homework4.services.UserService;
 import com.geekbrains.homework4.utils.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;

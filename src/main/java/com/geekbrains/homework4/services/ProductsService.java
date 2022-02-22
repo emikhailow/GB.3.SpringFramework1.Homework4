@@ -1,24 +1,38 @@
 package com.geekbrains.homework4.services;
 
+import com.ewm.spring.ws.products.ProductSoap;
 import com.geekbrains.homework4.entities.Product;
 import com.geekbrains.homework4.entities.ProductCategory;
 import com.geekbrains.homework4.repository.ProductCategoriesRepository;
 import com.geekbrains.homework4.repository.ProductsRepository;
 import com.geekbrains.homework4.repository.specifications.ProductsSpecifications;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
 @Service
 @RequiredArgsConstructor
 public class ProductsService {
     private final ProductsRepository productsRepository;
     private final ProductCategoriesRepository productCategoriesRepository;
+
+    public static final Function<Product, ProductSoap> functionEntityToSoap = product -> {
+
+        ProductSoap productSoap = new ProductSoap();
+        productSoap.setId(product.getId());
+        productSoap.setTitle(product.getTitle());
+        productSoap.setPrice(product.getPrice());
+        return productSoap;
+
+    };
 
     public Page<Product> find(Integer minPrice, Integer maxPrice, String partTitle, Integer page, Long categorId){
         Specification<Product> specification = Specification.where(null);
@@ -36,7 +50,6 @@ public class ProductsService {
 
         return productsRepository.findAll(specification, PageRequest.of(page - 1, pageSize));
     }
-
 
     public List<Product> getProductsList() {
         return productsRepository.findAll();
@@ -56,5 +69,9 @@ public class ProductsService {
 
     public List<ProductCategory> findAllCategories(){
         return productCategoriesRepository.findAll();
+    }
+
+    public List<Product> findAll(){
+        return productsRepository.findAll();
     }
 }

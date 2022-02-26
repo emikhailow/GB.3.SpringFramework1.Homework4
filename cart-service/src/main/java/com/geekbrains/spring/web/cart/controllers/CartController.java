@@ -1,20 +1,26 @@
 package com.geekbrains.spring.web.cart.controllers;
 
+import com.geekbrains.spring.web.api.carts.CartDto;
+import com.geekbrains.spring.web.api.core.ProductDto;
 import com.geekbrains.spring.web.api.dto.StringResponse;
-import com.geekbrains.spring.web.cart.dto.Cart;
+import com.geekbrains.spring.web.cart.converters.CartConverter;
+import com.geekbrains.spring.web.cart.models.Cart;
 import com.geekbrains.spring.web.cart.services.CartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/cart")
 @RequiredArgsConstructor
 public class CartController {
     private final CartService cartService;
+    private final CartConverter cartConverter;
 
     @GetMapping("/{uuid}")
-    public Cart getCart(@RequestHeader(required = false) String username, @PathVariable String uuid) {
-        return cartService.getCurrentCart(getCurrentCartUuid(username, uuid));
+    public CartDto getCart(@RequestHeader(required = false) String username, @PathVariable String uuid) {
+        return cartConverter.modelToDto(cartService.getCurrentCart(getCurrentCartUuid(username, uuid)));
     }
 
     @GetMapping("/generate")
@@ -55,5 +61,10 @@ public class CartController {
             return cartService.getCartUuidFromSuffix(username);
         }
         return cartService.getCartUuidFromSuffix(uuid);
+    }
+
+    @GetMapping("/most-added-items")
+    public List<ProductDto> getMostAddedItems(@RequestParam(name = "count", defaultValue = "10") Integer count) {
+        return cartService.getMostAddedItems(count);
     }
 }

@@ -10,6 +10,7 @@
         <module>auth-service</module>
         <module>api</module>
         <module>cart-service</module>
+        <module>recommends-service</module>
     </modules>
 
     <parent>
@@ -19,7 +20,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>com.geekbrains</groupId>
+    <groupId>com.geekbrains.web</groupId>
     <artifactId>spring-web</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>spring-web</name>
@@ -56,16 +57,6 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>2.13.1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-redis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>redis.clients</groupId>
-            <artifactId>jedis</artifactId>
-            <version>3.6.0</version>
         </dependency>
         <dependency>
             <groupId>javax.xml.bind</groupId>

@@ -8,12 +8,6 @@
     <artifactId>api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <dependencies>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>RELEASE</version>
-            <scope>compile</scope>
-        </dependency>
     </dependencies>
     <name>demo</name>
     <description>Demo project for Spring Boot</description>

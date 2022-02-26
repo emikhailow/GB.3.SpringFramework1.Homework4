@@ -1,6 +1,6 @@
-package com.geekbrains.spring.web.core.dto;
+package com.geekbrains.spring.web.cart.models;
 
-import com.geekbrains.spring.web.core.entities.Product;
+import com.geekbrains.spring.web.api.core.ProductDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,19 +8,19 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderItemDto {
+public class CartItem {
     private Long productId;
     private String productTitle;
     private int quantity;
     private int pricePerProduct;
     private int price;
 
-    public OrderItemDto(Product product) {
-        this.productId = product.getId();
-        this.productTitle = product.getTitle();
+    public CartItem(ProductDto productDto) {
+        this.productId = productDto.getId();
+        this.productTitle = productDto.getTitle();
         this.quantity = 1;
-        this.pricePerProduct = product.getPrice();
-        this.price = product.getPrice();
+        this.pricePerProduct = productDto.getPrice();
+        this.price = productDto.getPrice();
     }
 
     public void changeQuantity(int delta){

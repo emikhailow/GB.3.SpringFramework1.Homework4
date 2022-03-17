@@ -26,6 +26,22 @@ angular.module('market-front').controller('storeController', function ($scope, $
             });
     };
 
+    $scope.loadMostOrderedItems = function () {
+        $http.get('http://localhost:5555/recommends/api/v1/most-ordered')
+            .then(function (response) {
+                console.log(response.data);
+                $scope.mostOrderedItems = response.data;
+            });
+    };
+
+    $scope.loadMostAddedToCartItems = function () {
+        $http.get('http://localhost:5555/recommends/api/v1/most-added-to-cart')
+            .then(function (response) {
+                console.log(response.data);
+                $scope.mostAddedToCartItems = response.data;
+            });
+    };
+
     $scope.addToCart = function (productId) {
         $http.get('http://localhost:5555/cart/api/v1/cart/' + $localStorage.springWebGuestCartId + '/add/' + productId)
             .then(function (response) {
@@ -52,4 +68,6 @@ angular.module('market-front').controller('storeController', function ($scope, $
 
     $scope.loadProducts();
     $scope.loadCategories();
+    $scope.loadMostOrderedItems();
+    $scope.loadMostAddedToCartItems();
 });

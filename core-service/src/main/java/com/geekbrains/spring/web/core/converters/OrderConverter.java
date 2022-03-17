@@ -1,6 +1,6 @@
 package com.geekbrains.spring.web.core.converters;
 
-import com.geekbrains.spring.web.core.dto.OrderDto;
+import com.geekbrains.spring.web.api.core.OrderDto;
 import com.geekbrains.spring.web.core.entities.Order;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

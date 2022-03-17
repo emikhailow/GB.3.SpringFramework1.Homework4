@@ -1,6 +1,6 @@
 package com.geekbrains.spring.web.core.entities;
 
-import com.geekbrains.spring.web.core.dto.ProductDto;
+import com.geekbrains.spring.web.api.core.ProductDto;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 

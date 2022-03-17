@@ -1,59 +1,94 @@
-<div>
-    <p></p>
-    <form novalidate ng-submit="loadProducts()">
-        <div class="form-floating input-group-sm">
-            <input type="text" class="form-control" id="filterTitle" placeholder="" ng-model="filter.title_part">
-            <label for="filterTitle">Item</label>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-2">
+            <form novalidate ng-submit="loadProducts()">
+                <div class="form-floating input-group-sm">
+                    <input type="text" class="form-control" id="filterTitle" placeholder=""
+                           ng-model="filter.title_part">
+                    <label for="filterTitle">Item</label>
+                </div>
+                <p></p>
+                <div class="form-floating input-group-sm">
+                    <input type="number" class="form-control" id="filterMinPrice" placeholder=""
+                           ng-model="filter.min_price">
+                    <label for="filterMinPrice">Min. price</label>
+                </div>
+                <p></p>
+                <div class="form-floating input-group-sm">
+                    <input type="number" class="form-control" id="filterMaxPrice" placeholder=""
+                           ng-model="filter.max_price">
+                    <label for="filterMaxPrice">Max. price</label>
+                </div>
+                <p></p>
+                <button class="btn btn-outline-warning btn-sm" style="width: 100%;" type="submit">Filter</button>
+            </form>
         </div>
-        <p></p>
-        <div class="form-floating input-group-sm">
-            <input type="number" class="form-control" id="filterMinPrice" placeholder="" ng-model="filter.min_price">
-            <label for="filterMinPrice">Min. price</label>
+        <div class="col-sm-8">
+            <h3>Item catalog</h3>
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li class="page-item" ng-repeat="productCategory in productCategories">
+                        <button class="page-link product-category-{{productCategory.id}}}"
+                                ng-click="findByCategory(productCategory.id)">{{productCategory.title}}
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+            <table class="table table-hover">
+                <tr>
+                    <td>ID</td>
+                    <td>Name</td>
+                    <td>Price</td>
+                    <td></td>
+                </tr>
+                <tbody>
+                <tr ng-repeat="p in ProductsPage.content">
+                    <td>{{p.id}}</td>
+                    <td>{{p.title}}</td>
+                    <td>{{p.price}}</td>
+                    <td>
+                        <button class="btn btn-primary" ng-click="addToCart(p.id)">Add to cart</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <p>
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li class="page-item" ng-repeat="pageIndex in paginationArray">
+                        <button class="page-link" ng-click="findByPageNumber(pageIndex)">{{pageIndex}}</button>
+                    </li>
+                </ul>
+            </nav>
+            </p>
         </div>
-        <p></p>
-        <div class="form-floating input-group-sm">
-            <input type="number" class="form-control" id="filterMaxPrice" placeholder="" ng-model="filter.max_price">
-            <label for="filterMaxPrice">Max. price</label>
+        <div class="col-sm-2">
+            <h3>Most ordered items</h3>
+            <table class="table table-hover">
+                <tr>
+                    <td>ID</td>
+                    <td>Name</td>
+                </tr>
+                <tbody>
+                <tr ng-repeat="p in mostOrderedItems">
+                    <td>{{p.id}}</td>
+                    <td>{{p.title}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <h3>Most added to cart items</h3>
+            <table class="table table-hover">
+                <tr>
+                    <td>ID</td>
+                    <td>Name</td>
+                </tr>
+                <tbody>
+                <tr ng-repeat="p in mostAddedToCartItems">
+                    <td>{{p.id}}</td>
+                    <td>{{p.title}}</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
-        <p></p>
-        <button class="btn btn-outline-warning btn-sm" style="width: 100%;" type="submit">Filter</button>
-    </form>
-
-    <h3>Item catalog</h3>
-    <nav aria-label="Page navigation">
-        <ul class="pagination">
-            <li class="page-item" ng-repeat="productCategory in productCategories">
-                <button class="page-link product-category-{{productCategory.id}}}" ng-click="findByCategory(productCategory.id)">{{productCategory.title}}</button>
-            </li>
-        </ul>
-    </nav>
-    <table class="table table-hover">
-        <tr>
-            <td>ID</td>
-            <td>Name</td>
-            <td>Price</td>
-            <td></td>
-        </tr>
-        <tbody>
-        <tr ng-repeat="p in ProductsPage.content">
-            <td>{{p.id}}</td>
-            <td>{{p.title}}</td>
-            <td>{{p.price}}</td>
-            <td>
-                <button class="btn btn-primary" ng-click="addToCart(p.id)">Add to cart</button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <p>
-    <nav aria-label="Page navigation">
-        <ul class="pagination">
-            <li class="page-item" ng-repeat="pageIndex in paginationArray">
-                <button class="page-link" ng-click="findByPageNumber(pageIndex)">{{pageIndex}}</button>
-            </li>
-        </ul>
-    </nav>
-    </p>
-
-
+    </div>
 </div>

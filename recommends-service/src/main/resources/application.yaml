@@ -1,0 +1,19 @@
+server:
+  port: 8195
+  servlet:
+    context-path: /web-market-recommends
+utils:
+  cart:
+    prefix: SPRING_WEB_
+integrations:
+  core-service:
+    url: http://localhost:5555/core
+  cart-service:
+    url: http://localhost:5555/cart
+scheduled-tasks:
+  most-ordered-items:
+    max-count: 5
+    fixed-delay: 10000
+  most-added-to-cart-items:
+    max-count: 5
+    fixed-delay: 10000

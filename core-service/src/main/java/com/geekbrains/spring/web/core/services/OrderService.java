@@ -1,19 +1,20 @@
 package com.geekbrains.spring.web.core.services;
 
-import com.geekbrains.spring.web.api.dto.CartDto;
+import com.geekbrains.spring.web.api.carts.CartDto;
+import com.geekbrains.spring.web.api.core.ProductDto;
 import com.geekbrains.spring.web.api.exceptions.ResourceNotFoundException;
-import com.geekbrains.spring.web.core.dto.OrderDetailsDto;
+import com.geekbrains.spring.web.api.core.OrderDetailsDto;
+import com.geekbrains.spring.web.core.converters.ProductsConverter;
 import com.geekbrains.spring.web.core.entities.Order;
 import com.geekbrains.spring.web.core.entities.OrderItem;
+import com.geekbrains.spring.web.core.integrations.CartServiceIntegration;
+import com.geekbrains.spring.web.core.repository.OrderItemRepository;
 import com.geekbrains.spring.web.core.repository.OrdersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -25,7 +26,10 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class OrderService {
     private final OrdersRepository ordersRepository;
+    private final OrderItemRepository orderItemRepository;
     private final ProductsService productsService;
+    private final CartServiceIntegration cartServiceIntegration;
+    private final ProductsConverter productsConverter;
 
     @Autowired
     private RestTemplate restTemplate;
@@ -39,17 +43,7 @@ public class OrderService {
     @Transactional
     public void createOrder(String username, OrderDetailsDto orderDetailsDto){
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("username", username);
-        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
-        ResponseEntity<CartDto> response = restTemplate.exchange(String.format("http://localhost:5555/cart/api/v1/cart/%s", "none"),
-                HttpMethod.GET,
-                requestEntity, CartDto.class);
-
-        CartDto currentCart = response.getBody();
-
-//        String cartKey = cartService.getCartUuidFromSuffix(username);
-//        Cart currentCart = cartService.getCurrentCart(cartKey);
+        CartDto currentCart = cartServiceIntegration.getUserCart(username);
 
         Order order = new Order();
         order.setAddress(orderDetailsDto.getAddress());
@@ -70,15 +64,18 @@ public class OrderService {
                 }).collect(Collectors.toList());
         order.setItems(items);
         ordersRepository.save(order);
-        restTemplate.getForObject(
-                String.format("http://localhost:5555/cart/api/v1/cart/%s/clear", username),
-                CartDto.class);
+        cartServiceIntegration.clearUserCart(username);
 
-        //cartService.clearCart(cartKey);
     }
 
     public List<Order> findOrdersByUsername(String username){
         return ordersRepository.findAllByUsername(username);
+    }
+
+    public List<ProductDto> getMostOrderedItems(Integer count){
+        return orderItemRepository.findMostOrderedItems(PageRequest.of(0, count)).stream()
+                .map(productsConverter::entityToDto)
+                .collect(Collectors.toList());
     }
 
 }

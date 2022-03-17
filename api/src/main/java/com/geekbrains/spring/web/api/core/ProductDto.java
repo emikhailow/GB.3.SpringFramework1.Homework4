@@ -1,4 +1,4 @@
-package com.geekbrains.spring.web.api.dto;
+package com.geekbrains.spring.web.api.core;
 
 public class ProductDto {
     private Long id;
@@ -38,4 +38,29 @@ public class ProductDto {
     public ProductDto() {
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof ProductDto)) {
+            return false;
+        }
+
+        ProductDto p = (ProductDto) obj;
+
+        return id.equals(p.id) && title.equals(p.title);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        if (id != null) {
+            result = 31 * result + id.hashCode();
+        }
+        if (title != null) {
+            result = 31 * result + title.hashCode();
+        }
+        return result;
+    }
 }

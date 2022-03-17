@@ -1,6 +1,6 @@
 package com.geekbrains.spring.web.core.converters;
 
-import com.geekbrains.spring.web.core.dto.ProductCategoryDto;
+import com.geekbrains.spring.web.api.core.ProductCategoryDto;
 import com.geekbrains.spring.web.core.entities.ProductCategory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

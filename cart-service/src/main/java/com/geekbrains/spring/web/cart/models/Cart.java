@@ -3,6 +3,7 @@ package com.geekbrains.spring.web.cart.models;
 import com.geekbrains.spring.web.api.core.ProductDto;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -10,16 +11,16 @@ import java.util.*;
 public class Cart {
 
     private List<CartItem> items;
-    private int totalPrice;
+    private BigDecimal totalPrice;
 
     public Cart() {
         this.items = new ArrayList<>();
     }
 
     private void recalculate(){
-        totalPrice = 0;
+        totalPrice = BigDecimal.ZERO;
         for (CartItem item : items) {
-            totalPrice += item.getPrice();
+            totalPrice = totalPrice.add(item.getPrice());
         }
     }
 

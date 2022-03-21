@@ -1,9 +1,17 @@
 package com.geekbrains.spring.web.api.core;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
+import java.math.BigDecimal;
+
+@Schema(description = "Product model")
 public class ProductDto {
+    @Schema(description = "Product ID", required = true, example = "1")
     private Long id;
+    @Schema(description = "Product title", required = true, minLength = 3, maxLength = 255, example = "Bread")
     private String title;
-    private int price;
+    @Schema(description = "Product price", required = true, example = "50")
+    private BigDecimal price;
 
     public Long getId() {
         return id;
@@ -21,15 +29,15 @@ public class ProductDto {
         this.title = title;
     }
 
-    public int getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
-    public ProductDto(Long id, String title, int price) {
+    public ProductDto(Long id, String title, BigDecimal price) {
         this.id = id;
         this.title = title;
         this.price = price;

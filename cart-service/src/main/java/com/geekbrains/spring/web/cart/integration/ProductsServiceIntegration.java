@@ -5,10 +5,8 @@ import com.geekbrains.spring.web.api.core.ProductDto;
 import com.geekbrains.spring.web.api.exceptions.CoreServiceNotWorkingException;
 import com.geekbrains.spring.web.api.exceptions.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 

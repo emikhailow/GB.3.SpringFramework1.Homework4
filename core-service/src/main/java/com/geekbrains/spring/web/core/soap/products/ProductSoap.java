@@ -8,10 +8,12 @@
 
 package com.geekbrains.spring.web.core.soap.products;
 
+import javax.swing.plaf.basic.BasicIconFactory;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import java.math.BigDecimal;
 
 
 /**
@@ -46,7 +48,7 @@ public class ProductSoap {
     protected long id;
     @XmlElement(required = true)
     protected String title;
-    protected int price;
+    protected BigDecimal price;
 
     /**
      * Gets the value of the id property.
@@ -92,7 +94,7 @@ public class ProductSoap {
      * Gets the value of the price property.
      * 
      */
-    public int getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
@@ -100,7 +102,7 @@ public class ProductSoap {
      * Sets the value of the price property.
      * 
      */
-    public void setPrice(int value) {
+    public void setPrice(BigDecimal value) {
         this.price = value;
     }
 

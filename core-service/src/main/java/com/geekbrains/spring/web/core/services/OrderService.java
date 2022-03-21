@@ -11,13 +11,8 @@ import com.geekbrains.spring.web.core.integrations.CartServiceIntegration;
 import com.geekbrains.spring.web.core.repository.OrderItemRepository;
 import com.geekbrains.spring.web.core.repository.OrdersRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,15 +25,6 @@ public class OrderService {
     private final ProductsService productsService;
     private final CartServiceIntegration cartServiceIntegration;
     private final ProductsConverter productsConverter;
-
-    @Autowired
-    private RestTemplate restTemplate;
-
-    @Bean
-    @LoadBalanced
-    public RestTemplate restTemplate(){
-        return new RestTemplate();
-    }
 
     @Transactional
     public void createOrder(String username, OrderDetailsDto orderDetailsDto){

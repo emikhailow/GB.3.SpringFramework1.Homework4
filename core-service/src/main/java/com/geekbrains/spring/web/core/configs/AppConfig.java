@@ -1,9 +1,12 @@
 package com.geekbrains.spring.web.core.configs;
 
+import com.geekbrains.spring.web.core.properties.CartServiceIntegrationProperties;
 import io.netty.channel.ChannelOption;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import io.netty.handler.timeout.WriteTimeoutHandler;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
@@ -15,8 +18,14 @@ import reactor.netty.tcp.TcpClient;
 import java.util.concurrent.TimeUnit;
 
 @Configuration
+@EnableConfigurationProperties(
+        CartServiceIntegrationProperties.class
+)
+@RequiredArgsConstructor
 @EnableScheduling
 public class AppConfig {
+    private final CartServiceIntegrationProperties cartServiceIntegrationProperties;
+
     @Value("${integrations.cart-service.url}")
     private String cartServiceUrl;
 
@@ -24,10 +33,10 @@ public class AppConfig {
     public WebClient cartServiceWebClient(){
         TcpClient tcpClient = TcpClient
                 .create()
-                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 2000)
+                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, cartServiceIntegrationProperties.getTimeout().getConnect())
                 .doOnConnected(connection -> {
-                    connection.addHandlerLast(new ReadTimeoutHandler(10000, TimeUnit.MILLISECONDS));
-                    connection.addHandlerLast(new WriteTimeoutHandler(2000, TimeUnit.MILLISECONDS));
+                    connection.addHandlerLast(new ReadTimeoutHandler(cartServiceIntegrationProperties.getTimeout().getRead(), TimeUnit.MILLISECONDS));
+                    connection.addHandlerLast(new WriteTimeoutHandler(cartServiceIntegrationProperties.getTimeout().getWrite(), TimeUnit.MILLISECONDS));
                 });
         return WebClient
                 .builder()

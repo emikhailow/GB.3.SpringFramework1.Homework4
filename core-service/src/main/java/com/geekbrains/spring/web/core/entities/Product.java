@@ -5,6 +5,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Random;
 
@@ -20,7 +21,7 @@ public class Product {
     private String title;
 
     @Column(name = "price")
-    private int price;
+    private BigDecimal price;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -60,7 +61,7 @@ public class Product {
         return title;
     }
 
-    public int getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
@@ -71,7 +72,7 @@ public class Product {
     }
 
     private void generateRandomPrice() {
-        this.price = random.nextInt(MAX_PRICE);
+        this.price = BigDecimal.valueOf(random.nextInt(MAX_PRICE));
     }
 
     public Product() {

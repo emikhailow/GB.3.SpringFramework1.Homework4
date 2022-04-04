@@ -5,12 +5,20 @@
             <td>ID</td>
             <td>Delivery address</td>
             <td>Sum</td>
+            <td>Status</td>
+            <td></td>
         </tr>
         <tbody>
         <tr ng-repeat="order in MyOrders">
             <td>{{order.id}}</td>
-            <td>{{order.address}}</td>
+            <td>{{order.addressLine1 + ', ' + order.addressLine2 + ', ' +
+                order.adminArea1 + ', ' + order.adminArea2 + ', ' +
+                order.postalCode + ', ' + order.countryCode}}</td>
             <td>{{order.totalPrice}}</td>
+            <td>{{order.status}}</td>
+            <td>
+                <button class="btn btn-primary" ng-show="{{order.status == 'CREATED'}}" ng-click="goToPay(order.id)">Pay</button>
+            </td>
         </tr>
         </tbody>
     </table>

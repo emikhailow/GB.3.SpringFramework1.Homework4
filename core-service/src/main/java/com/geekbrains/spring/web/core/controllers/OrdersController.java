@@ -2,6 +2,7 @@ package com.geekbrains.spring.web.core.controllers;
 
 import com.geekbrains.spring.web.api.core.ProductCategoryDto;
 import com.geekbrains.spring.web.api.core.ProductDto;
+import com.geekbrains.spring.web.api.exceptions.ResourceNotFoundException;
 import com.geekbrains.spring.web.core.converters.OrderConverter;
 import com.geekbrains.spring.web.api.core.OrderDetailsDto;
 import com.geekbrains.spring.web.api.core.OrderDto;
@@ -74,6 +75,12 @@ public class OrdersController {
     @GetMapping("/most-ordered-products")
     public List<ProductDto> getMostOrderedItems(@RequestParam(name = "count", defaultValue = "5") Integer count){
         return orderService.getMostOrderedItems(count);
+    }
+
+    @GetMapping("/{id}")
+    public OrderDto getOrderById(@PathVariable long id){
+        return orderConverter.entityToDto(orderService.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(String.format("Order with id %d not found", id))));
     }
 
 }

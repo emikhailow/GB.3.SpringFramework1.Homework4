@@ -25,11 +25,32 @@ public class Order {
     @Column(name = "address")
     private String address;
 
+    @Column(name = "address_line_1")
+    private String addressLine1;
+
+    @Column(name = "address_line_2")
+    private String addressLine2;
+
+    @Column(name = "admin_area_1")
+    private String adminArea1;
+
+    @Column(name = "admin_area_2")
+    private String adminArea2;
+
+    @Column(name = "postal_code")
+    private String postalCode;
+
+    @Column(name = "country_code")
+    private String countryCode;
+
     @Column(name = "phone")
     private String phone;
 
     @Column(name = "username")
     private String username;
+
+    @Column(name = "status")
+    private String status;
 
     @OneToMany(mappedBy = "order", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<OrderItem> items;
@@ -49,4 +70,6 @@ public class Order {
     public void addItem(OrderItem orderItem){
         this.items.add(orderItem);
     }
+
+
 }

@@ -11,6 +11,8 @@ import com.geekbrains.spring.web.core.entities.OrderItem;
 import com.geekbrains.spring.web.core.integrations.CartServiceIntegration;
 import com.geekbrains.spring.web.core.repository.OrderItemRepository;
 import com.geekbrains.spring.web.core.repository.OrdersRepository;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Data
 @RequiredArgsConstructor
 public class OrderService {
     private final OrdersRepository ordersRepository;

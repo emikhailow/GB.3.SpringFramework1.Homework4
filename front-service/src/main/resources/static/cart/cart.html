@@ -27,12 +27,52 @@
     <p></p>
     <h3>Order details</h3>
     <form novalidate>
-        <input class="form-control" type="text" placeholder="Phone number" ng-model="orderDetails.phone">
-        <p></p>
-        <input class="form-control" type="text" placeholder="Delivery address" ng-model="orderDetails.address">
-        <p></p>
+        <div class="container overflow-hidden">
+            <div class="row pb-3">
+                <div class="col-12">
+                    <input class="form-control" type="text" placeholder="Phone number" ng-model="orderDetails.phone">
+                </div>
+            </div>
+        </div>
+
+        <h4>Delivery address</h4>
+
+        <div class="container overflow-hidden">
+            <div class="row pb-3">
+                <div class="col-6">
+                    <input class="form-control" type="text" placeholder="Address line 1"
+                           ng-model="orderDetails.addressLine1">
+                </div>
+                <div class="col-6">
+                    <input class="form-control" type="text" placeholder="Address line 2"
+                           ng-model="orderDetails.addressLine2">
+                </div>
+            </div>
+            <div class="row pb-3">
+                <div class="col-4">
+                    <input class="form-control" type="text" placeholder="Admin area 1"
+                           ng-model="orderDetails.adminArea1">
+                </div>
+                <div class="col-4">
+                    <input class="form-control" type="text" placeholder="Admin area 2"
+                           ng-model="orderDetails.adminArea2">
+                </div>
+                <div class="col-2">
+                    <input class="form-control" type="text" placeholder="Postal code"
+                           ng-model="orderDetails.postalCode">
+                </div>
+                <div class="col-2">
+                    <input class="form-control" type="text" placeholder="Country code"
+                           ng-model="orderDetails.countryCode">
+                </div>
+            </div>
+        </div>
     </form>
 
-    <button class="btn btn-primary" ng-click="checkOut()" ng-show="isUserLoggedIn() && cart.items.length > 0">Create order</button>
-    <button class="btn btn-secondary" ng-click="disabledCheckOut()" ng-show="!isUserLoggedIn() && cart.items.length > 0">Create order</button>
+    <button class="btn btn-primary" ng-click="checkOut()" ng-show="isUserLoggedIn() && cart.items.length > 0">Create
+        order
+    </button>
+    <button class="btn btn-secondary" ng-click="disabledCheckOut()"
+            ng-show="!isUserLoggedIn() && cart.items.length > 0">Create order
+    </button>
 </div>

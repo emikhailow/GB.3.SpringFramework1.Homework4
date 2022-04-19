@@ -1,0 +1,33 @@
+<div>
+    <p></p>
+    <h3>Your order</h3>
+
+    <p>ID: {{order.id}}</p>
+    <p>Price: {{order.totalPrice}}</p>
+    <p>Address: {{order.addressLine1 + ', ' + order.addressLine2 + ', ' +
+        order.adminArea1 + ', ' + order.adminArea2 + ', ' +
+        order.postalCode + ', ' + order.countryCode}}</p>
+    <p>Phone: {{order.phone}}</p>
+
+    <h3>Items</h3>
+    <table class="table table-hover">
+        <tr>
+            <td>Title</td>
+            <td>Quantity</td>
+            <td>Price</td>
+            <td>Sum</td>
+        </tr>
+        <tbody>
+        <tr ng-repeat="item in order.items">
+            <td>{{item.productTitle}}</td>
+            <td>{{item.quantity}}</td>
+            <td>{{item.pricePerProduct}}</td>
+            <td>{{item.price}}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p></p>
+    <h3>Pay</h3>
+    <div id="paypal-buttons"></div>
+</div>

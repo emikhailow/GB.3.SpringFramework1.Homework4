@@ -10,6 +10,7 @@ import com.geekbrains.spring.web.auth.repositories.UserRepository;
 import com.geekbrains.spring.web.auth.utils.JwtTokenUtil;
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,6 +28,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService {
+
     private final UserRepository userRepository;
     private final RolesService rolesService;
     private final BCryptPasswordEncoder passwordEncoder;
@@ -59,6 +61,7 @@ public class UserService implements UserDetailsService {
         user.setRoles(List.of(rolesService.getDefaultRole()));
         return userRepository.save(user);
     }
+
 
     /*public User getUserFromToken(String token){
 

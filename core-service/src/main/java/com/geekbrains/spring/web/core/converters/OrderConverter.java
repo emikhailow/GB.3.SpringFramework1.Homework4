@@ -20,6 +20,13 @@ public class OrderConverter {
                         .collect(Collectors.toList()),
                 order.getTotalPrice(),
                 order.getAddress(),
-                order.getPhone());
+                order.getPhone(),
+                order.getAddressLine1(),
+                order.getAddressLine2(),
+                order.getAdminArea1(),
+                order.getAdminArea2(),
+                order.getPostalCode(),
+                order.getCountryCode(),
+                order.getStatus());
     }
 }

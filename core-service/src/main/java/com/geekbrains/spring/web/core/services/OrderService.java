@@ -36,19 +36,13 @@ public class OrderService {
 
         CartDto currentCart = cartServiceIntegration.getUserCart(username);
 
-        Order order = new Order();
-        order.setAddress(orderDetailsDto.getAddress());
-        order.setPhone(orderDetailsDto.getPhone());
-        order.setUsername(username);
-        order.setTotalPrice(currentCart.getTotalPrice());
-        order.setStatus(OrderStatuses.CREATED.name());
-
-        order.setAddressLine1(orderDetailsDto.getAddressLine1());
-        order.setAddressLine2(orderDetailsDto.getAddressLine2());
-        order.setAdminArea1(orderDetailsDto.getAdminArea1());
-        order.setAdminArea2(orderDetailsDto.getAdminArea2());
-        order.setPostalCode(orderDetailsDto.getPostalCode());
-        order.setCountryCode(orderDetailsDto.getCountryCode());
+        Order order = new Order.Builder(username)
+                .totalPrice(currentCart.getTotalPrice())
+                .contactInfo(orderDetailsDto.getPhone(), orderDetailsDto.getAddress())
+                .payPalAddressInfo(orderDetailsDto.getAddressLine1(), orderDetailsDto.getAddressLine2(),
+                        orderDetailsDto.getAdminArea1(), orderDetailsDto.getAdminArea2(),
+                        orderDetailsDto.getPostalCode(), orderDetailsDto.getCountryCode())
+                .build();
 
         List<OrderItem> items = currentCart.getItems().stream()
                 .map(orderItemDto -> {
@@ -61,6 +55,7 @@ public class OrderService {
                             .orElseThrow(() -> new ResourceNotFoundException(String.format("Item with id %d not found", orderItemDto.getProductId()))));
                     return orderItem;
                 }).collect(Collectors.toList());
+
         order.setItems(items);
         ordersRepository.save(order);
         cartServiceIntegration.clearUserCart(username);

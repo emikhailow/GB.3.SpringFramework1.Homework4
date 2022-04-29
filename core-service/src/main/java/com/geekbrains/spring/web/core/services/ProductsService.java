@@ -23,6 +23,7 @@ import java.util.function.Function;
 public class ProductsService {
     private final ProductsRepository productsRepository;
     private final ProductCategoriesRepository productCategoriesRepository;
+    private final ProductsCache productsCache;
 
     public static final Function<Product, ProductSoap> functionEntityToSoap = product -> {
 
@@ -56,7 +57,7 @@ public class ProductsService {
     }
 
     public Optional<Product> findById(Long id) {
-        return productsRepository.findById(id);
+        return productsCache.findById(id);
     }
 
     public void removeItem(Long id) {
